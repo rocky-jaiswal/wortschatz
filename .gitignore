@@ -1,0 +1,10 @@
+/api/.gradle/
+/api/.idea/
+/api/build/
+/api/gradle.properties
+/api/out/
+/gsheet-loader/node_modules/
+/ui/node_modules/
+/ui/yarn-error.log
+/gsheet-loader/credentials.json
+/gsheet-loader/token.json

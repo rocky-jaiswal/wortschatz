@@ -1,0 +1,18 @@
+@import '../../styles/variables';
+
+.footer {
+  display: flex;
+  background-color: $main-complement;
+  color: $main-white;
+  padding: 10px;
+  height: 100px;
+  width: 100%;
+
+  button {
+    width: 50%;
+    height: 100%;
+    background-color: $main-complement;
+    font-size: 3rem;
+    color: white;
+  }
+}
