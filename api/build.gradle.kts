@@ -58,6 +58,9 @@ dependencies {
 
     // DB Migration
     implementation("org.flywaydb:flyway-core:5.2.4")
+
+    // JWT
+    implementation("com.auth0:java-jwt:3.8.0")
 }
 
 application {

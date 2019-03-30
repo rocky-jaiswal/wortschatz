@@ -18,7 +18,7 @@ Simple Javalin + Kotlin based API boilerplate. Please note that this project is 
   - Local, QA, Production
 - Secrets management ✔️
   - Also may vary depending on env.
-- CORS in development
+- CORS in development ✔️
   - Also may vary depending on env.
 - Hot reload in development (automatic restart)
 - JSON + XML parsing / generation
@@ -34,10 +34,10 @@ Simple Javalin + Kotlin based API boilerplate. Please note that this project is 
 - Code quality analysis / measurement
 - Dependency Injection (if applicable, for better testable code) ✔️
 - Authenticated paths / Non-Authenticated paths
-- JWT Authentication
+- JWT Authentication ✔️
 - Authorization
 - API documentation / spec (e.g. openAPI / Swagger)
 - Docker + Docker-Compose setup
-- Horizontal scaling strategy (API should be stateless for example)
+- Horizontal scaling strategy (API should be stateless for example) ✔️
 - Data pagination
 
