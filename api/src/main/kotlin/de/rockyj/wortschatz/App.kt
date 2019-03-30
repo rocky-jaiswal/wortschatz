@@ -8,6 +8,7 @@ import de.rockyj.wortschatz.repositories.DB
 import de.rockyj.wortschatz.repositories.WordRepository
 import de.rockyj.wortschatz.services.WordService
 import io.javalin.Context
+import io.javalin.Handler
 import io.javalin.Javalin
 import io.javalin.security.Role
 import org.flywaydb.core.Flyway
@@ -39,7 +40,7 @@ internal enum class AppRole : Role {
 }
 
 
-class App : KoinComponent {
+object App : KoinComponent {
     fun init(app: Javalin) {
         // Migrate the DB
         val dataSource: DataSource = get()
@@ -58,13 +59,20 @@ class App : KoinComponent {
             AppRole.ANYONE
         }
     }
+
+    fun checkAccess(handler: Handler, ctx: Context, permittedRoles: Set<Role>) {
+        val userRole = getUserRole(ctx)
+        if (permittedRoles.contains(userRole)) {
+            handler.handle(ctx)
+        } else {
+            ctx.status(401).result("Unauthorized")
+        }
+    }
 }
 
 fun main() {
     // Start DI
     StandAloneContext.startKoin(listOf(mainModule))
-
-    val app = App()
 
     // Javalin configuration
     val port = Configuration().get("port") as Int
@@ -72,18 +80,11 @@ fun main() {
 
     // Javalin setup
     val javalin = Javalin.create().apply {
+        accessManager { handler, ctx, permittedRoles -> App.checkAccess(handler, ctx, permittedRoles) }
         enableCorsForOrigin(corsOrigin)
         port(port)
-        accessManager { handler, ctx, permittedRoles ->
-            val userRole = app.getUserRole(ctx)
-            if (permittedRoles.contains(userRole)) {
-                handler.handle(ctx)
-            } else {
-                ctx.status(401).result("Unauthorized")
-            }
-        }
     }.start()
 
     // Initialize the app
-    app.init(javalin)
+    App.init(javalin)
 }
