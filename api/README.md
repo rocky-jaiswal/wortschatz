@@ -33,7 +33,7 @@ Simple Javalin + Kotlin based API boilerplate. Please note that this project is 
 - CI / CD
 - Code quality analysis / measurement
 - Dependency Injection (if applicable, for better testable code) ✔️
-- Authenticated paths / Non-Authenticated paths
+- Authenticated paths / Non-Authenticated paths ✔️
 - JWT Authentication ✔️
 - Authorization
 - API documentation / spec (e.g. openAPI / Swagger)
