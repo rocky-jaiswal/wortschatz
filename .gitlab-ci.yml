@@ -23,14 +23,17 @@ build-api:
     - cd $CI_PROJECT_DIR/api && ./gradlew -Dorg.gradle.daemon=false clean build --info
     
 deploy-api:
-  image: google/cloud-sdk
+  image: debian:stable-slim
   stage: deploy-api
+  services:
+    - docker:dind
   script:
+    - curl -fsSL https://sdk.cloud.google.com -o get-gcloud.sh && sh get-gcloud.sh --disable-prompts
     - curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
-    - gcloud config set run/region us-central1
-    - gcloud config set project wortschatz
     - gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json
+    - gcloud config set run/region us-central1
+    - gcloud config set core/project wortschatz
     - gcloud components install beta
     - gcloud components update
     - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
