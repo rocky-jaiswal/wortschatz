@@ -4,7 +4,7 @@ stages:
   - prepare-api
   - build-api
   - deploy-api
-  
+
 prepare-api:
   image: ruby:2.6-alpine
   stage: prepare-api
@@ -21,13 +21,14 @@ build-api:
       - .gradle
   script:
     - cd $CI_PROJECT_DIR/api && ./gradlew -Dorg.gradle.daemon=false clean build --info
-    
+
 deploy-api:
   image: debian:stable-slim
   stage: deploy-api
   services:
     - docker:dind
   script:
+    - apt-get update && apt-get install -y curl
     - curl -fsSL https://sdk.cloud.google.com -o get-gcloud.sh && sh get-gcloud.sh --disable-prompts
     - curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
