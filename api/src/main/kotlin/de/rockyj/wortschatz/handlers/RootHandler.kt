@@ -8,6 +8,6 @@ class RootHandler {
 
     fun get(ctx: Context): Context {
         logger.info("Received request for root path ...")
-        return ctx.json(mapOf("message" to "all ok"))
+        return ctx.json(mapOf("message" to "ok"))
     }
 }
