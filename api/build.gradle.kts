@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin on the JVM.
-    id("org.jetbrains.kotlin.jvm").version("1.3.20")
+    id("org.jetbrains.kotlin.jvm").version("1.3.30")
 
     id("com.github.johnrengelman.shadow").version("4.0.4")
 
@@ -23,13 +23,13 @@ tasks.withType<KotlinCompile> {
 
 dependencies {
     // Use the Kotlin JDK 8 standard library.
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.30")
 
     // Use junit 5
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.0")
 
     // App dependencies
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.3.20")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.3.30")
     implementation("io.javalin:javalin:2.6.0")
     implementation("org.slf4j:slf4j-simple:1.7.25")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.9.8")

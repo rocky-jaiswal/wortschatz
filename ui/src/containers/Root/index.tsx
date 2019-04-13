@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Immutable } from 'seamless-immutable';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import { Dispatch, RootStateType } from '../../constants/types';
 import { loadInitialData } from '../../redux/app/actions';

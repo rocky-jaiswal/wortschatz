@@ -2,15 +2,20 @@ import axios from 'axios';
 
 import Config from '../config';
 
+const getAuthToken = () => {
+  return `Bearer ${localStorage.getItem('token')}`;
+};
+
 const AppAPI = {
 
-  init() {
-    return axios.create();
+  async authenticate() {
+    return axios
+      .post(Config.env.baseURL + '/auth');
   },
 
   async loadInitialData() {
-    return await AppAPI.init()
-      .get(Config.env.baseURL + '/words');
+    return axios
+      .get(`${Config.env.baseURL}/words`, { headers: { Authorization: getAuthToken() } });
   }
 
 };

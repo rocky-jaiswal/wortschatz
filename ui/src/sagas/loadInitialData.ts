@@ -14,6 +14,9 @@ export function* loadInitialData() {
   try {
     yield put(loadInitialDataInProgress());
 
+    const tokenResponse = yield call(API.authenticate);
+    localStorage.setItem('token', tokenResponse.data.token);
+
     const response = yield call(API.loadInitialData);
     yield put(loadInitialDataSuccess(response.data.words));
   } catch (err) {

@@ -3,6 +3,8 @@ import { AppStateType } from '../redux/app/types';
 
 interface RootState {
   app: AppStateType;
+  // tslint:disable-next-line:no-any
+  router?: any;
 }
 
 export type ActionType<T> = {
