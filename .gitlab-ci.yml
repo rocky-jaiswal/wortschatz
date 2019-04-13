@@ -28,7 +28,6 @@ deploy-api:
   script:
     - curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
-    - gcloud init
     - gcloud config set run/region us-central1
     - gcloud config set project wortschatz
     - gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json
