@@ -10,6 +10,7 @@ import { withWrapper } from '../MainHoc';
 import { WordAndMeaning } from '../../redux/app/types';
 import WordDisplay from '../../components/WordDisplay';
 import MeaningDisplay from '../../components/MeaningDisplay';
+import Loading from '../../components/Loading';
 import styles from './styles.module.scss';
 
 interface Props {
@@ -45,8 +46,8 @@ export class Root extends React.Component<Props & DispatchProps> {
   }
 
   render() {
-    if (this.props.words.length === 0) {
-      return <div />;
+    if (this.props.words.length === 0 || this.props.loading) {
+      return <Loading show={true} />;
     }
     return (
       <div className={styles.words_container}>
