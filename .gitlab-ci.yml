@@ -9,6 +9,7 @@ prepare-api:
   image: ruby:2.6-alpine
   stage: prepare-api
   script:
+    - mkdir -p $CI_PROJECT_DIR/api/src/main/resources/secrets
     - echo $SECRETS_YAML > $CI_PROJECT_DIR/api/src/main/resources/secrets/secrets.yaml
     - cd $CI_PROJECT_DIR/api && ./encrypt_secrets.rb production
 
