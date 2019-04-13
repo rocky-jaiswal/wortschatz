@@ -31,7 +31,7 @@ deploy-api:
     - apk add --update make ca-certificates openssl python curl
     - update-ca-certificates
     - wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-241.0.0-linux-x86_64.tar.gz
-    - tar zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true
+    - tar zxvf google-cloud-sdk-241.0.0-linux-x86_64.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
     - google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json
     - google-cloud-sdk/bin/gcloud config set run/region us-central1
@@ -42,3 +42,4 @@ deploy-api:
     - cd $CI_PROJECT_DIR/api && docker build . --tag gcr.io/wortschatz-rockyj/wortschatz-api
     - docker push gcr.io/wortschatz-rockyj/wortschatz-api
     - google-cloud-sdk/bin/gcloud beta run deploy wortschatz-api --image gcr.io/wortschatz-rockyj/wortschatz-api
+    - rm -f /tmp/$CI_PIPELINE_ID.json
