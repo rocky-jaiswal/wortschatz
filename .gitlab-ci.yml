@@ -14,8 +14,11 @@ prepare-api:
     - cd $CI_PROJECT_DIR/api && ruby encrypt_secrets.rb production
 
 build-api:
-  image: java:8-jdk-alpine
+  image: java:8-jdk
   stage: build-api
+  cache:
+    paths:
+      - .gradle
   script:
     - cd $CI_PROJECT_DIR/api && ./gradlew -Dorg.gradle.daemon=false clean build --info
     
