@@ -23,22 +23,22 @@ build-api:
     - cd $CI_PROJECT_DIR/api && ./gradlew -Dorg.gradle.daemon=false clean build --info
 
 deploy-api:
-  image: debian:stable-slim
+  image: docker:latest
   stage: deploy-api
   services:
     - docker:dind
   script:
-    - apt-get update && apt-get install -y curl python
-    - curl -fsSL https://sdk.cloud.google.com -o get-gcloud.sh && bash get-gcloud.sh --disable-prompts
-    - curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
-    - source /root/google-cloud-sdk/path.bash.inc
+    - apk add --update make ca-certificates openssl python curl
+    - update-ca-certificates
+    - wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-241.0.0-linux-x86_64.tar.gz
+    - tar zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
-    - gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json
-    - gcloud config set run/region us-central1
-    - gcloud config set core/project wortschatz
-    - gcloud components install beta
-    - gcloud components update
-    - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+    - google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json
+    - google-cloud-sdk/bin/gcloud config set run/region us-central1
+    - google-cloud-sdk/bin/gcloud config set core/project wortschatz
+    - google-cloud-sdk/bin/gcloud components install beta
+    - google-cloud-sdk/bin/gcloud components update
+    - google-cloud-sdk/bin/gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
     - cd $CI_PROJECT_DIR/api && docker build . --tag gcr.io/wortschatz-rockyj/wortschatz-api
     - docker push gcr.io/wortschatz-rockyj/wortschatz-api
-    - gcloud beta run deploy wortschatz-api --image gcr.io/wortschatz-rockyj/wortschatz-api
+    - google-cloud-sdk/bin/gcloud beta run deploy wortschatz-api --image gcr.io/wortschatz-rockyj/wortschatz-api
