@@ -26,10 +26,12 @@ deploy-api:
   image: google/cloud-sdk
   stage: deploy-api
   script:
-    - apt-get install -y docker-ce docker-ce-cli containerd.io
+    - curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
     - gcloud init
-    - gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json --project=wortschatz
+    - gcloud config set run/region us-central1
+    - gcloud config set project wortschatz
+    - gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json
     - gcloud components install beta
     - gcloud components update
     - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
