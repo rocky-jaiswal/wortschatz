@@ -17,8 +17,7 @@ build-api:
   image: java:8-jdk-alpine
   stage: build-api
   script:
-    - cd api
-    - api/gradlew clean build
+    - cd $CI_PROJECT_DIR/api && ./gradlew -Dorg.gradle.daemon=false clean build --info
     
 deploy-api:
   image: google/cloud-sdk:alpine
