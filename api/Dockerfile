@@ -16,4 +16,6 @@ WORKDIR /opt/app/
 
 RUN tar -xvf wortschatz-api.tar
 
+USER $APPLICATION_USER
+
 CMD ["/opt/app/wortschatz-api/bin/wortschatz-api"]
