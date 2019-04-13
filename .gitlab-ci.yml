@@ -9,27 +9,25 @@ prepare-api:
   image: ruby:2.6-alpine
   stage: prepare-api
   script:
-    - cd api
-    - ./encrypt_secrets.rb production
+    - api/encrypt_secrets.rb production
 
 build-api:
   image: java:8-jdk-alpine
   stage: build-api
   script:
     - cd api
-    - ./gradlew clean build
+    - api/gradlew clean build
     
 deploy-api:
   image: google/cloud-sdk:alpine
   stage: deploy-api
   script:
-    - cd api
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
     - gcloud init
     - gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json --project=wortschatz
     - gcloud components install beta
     - gcloud components update
     - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-    - docker build . --tag gcr.io/wortschatz-rockyj/wortschatz-api
+    - cd api && docker build . --tag gcr.io/wortschatz-rockyj/wortschatz-api
     - docker push gcr.io/wortschatz-rockyj/wortschatz-api
     - gcloud beta run deploy wortschatz-api --image gcr.io/wortschatz-rockyj/wortschatz-api
