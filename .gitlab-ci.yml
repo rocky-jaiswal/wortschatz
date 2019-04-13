@@ -23,9 +23,10 @@ build-api:
     - cd $CI_PROJECT_DIR/api && ./gradlew -Dorg.gradle.daemon=false clean build --info
     
 deploy-api:
-  image: google/cloud-sdk-docker
+  image: google/cloud-sdk
   stage: deploy-api
   script:
+    - apt-get install -y docker-ce docker-ce-cli containerd.io
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
     - gcloud init
     - gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json --project=wortschatz
