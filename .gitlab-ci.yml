@@ -9,8 +9,7 @@ prepare-api:
   image: ruby:2.6-alpine
   stage: prepare-api
   script:
-    - pwd
-    - ls -l
+    - ls -l api/
     - $CI_PROJECT_DIR/api/encrypt_secrets.rb production
 
 build-api:
