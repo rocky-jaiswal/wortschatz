@@ -11,7 +11,7 @@ prepare-api:
   script:
     - mkdir -p $CI_PROJECT_DIR/api/src/main/resources/secrets
     - echo $SECRETS_YAML > $CI_PROJECT_DIR/api/src/main/resources/secrets/secrets.yaml
-    - cd $CI_PROJECT_DIR/api && ls -l && ./encrypt_secrets.rb production
+    - cd $CI_PROJECT_DIR/api && ruby encrypt_secrets.rb production
 
 build-api:
   image: java:8-jdk-alpine
