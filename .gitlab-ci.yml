@@ -9,7 +9,9 @@ prepare-api:
   image: ruby:2.6-alpine
   stage: prepare-api
   script:
-    - api/encrypt_secrets.rb production
+    - pwd
+    - ls -l
+    - ./api/encrypt_secrets.rb production
 
 build-api:
   image: java:8-jdk-alpine
