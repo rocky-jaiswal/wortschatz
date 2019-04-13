@@ -9,3 +9,4 @@
 /gsheet-loader/credentials.json
 /gsheet-loader/token.json
 /api/src/main/resources/secrets/
+/ui/build/

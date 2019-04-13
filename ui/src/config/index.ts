@@ -2,18 +2,16 @@ const environmentConfiguration = (environment: string) => {
 
   if (environment === 'development') {
     return {
-      baseURL: `http://${window.location.hostname}:8080`,
-      callbackURL : `http://${window.location.hostname}:3000/authCallback`
+      baseURL: `http://${window.location.hostname}:8080`
     };
   }
   return {
-    baseURL: `https://${window.location.hostname}/api`,
-    callbackURL: `https://${window.location.hostname}/authCallback`
+    baseURL: `https://api.${window.location.hostname}`
   };
 };
 
 const Config = {
-  env: environmentConfiguration(process.env.APP_ENV || 'development')
+  env: environmentConfiguration(process.env.REACT_APP_ENVIRONMENT || 'development')
 };
 
 export default Config;
