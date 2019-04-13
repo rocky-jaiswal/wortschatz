@@ -31,6 +31,7 @@ deploy-api:
     - apt-get update && apt-get install -y curl python
     - curl -fsSL https://sdk.cloud.google.com -o get-gcloud.sh && bash get-gcloud.sh --disable-prompts
     - curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+    - source /root/google-cloud-sdk/path.bash.inc
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
     - gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json
     - gcloud config set run/region us-central1
