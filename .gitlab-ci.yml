@@ -23,7 +23,7 @@ build-api:
     - cd $CI_PROJECT_DIR/api && ./gradlew -Dorg.gradle.daemon=false clean build --info
     
 deploy-api:
-  image: google/cloud-sdk:alpine
+  image: google/cloud-sdk-docker
   stage: deploy-api
   script:
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
