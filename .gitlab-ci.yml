@@ -11,7 +11,7 @@ prepare-api:
   script:
     - pwd
     - ls -l
-    - ./api/encrypt_secrets.rb production
+    - $CI_BUILDS_DIR/api/encrypt_secrets.rb production
 
 build-api:
   image: java:8-jdk-alpine
@@ -30,6 +30,6 @@ deploy-api:
     - gcloud components install beta
     - gcloud components update
     - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-    - cd api && docker build . --tag gcr.io/wortschatz-rockyj/wortschatz-api
+    - cd $CI_BUILDS_DIR/api && docker build . --tag gcr.io/wortschatz-rockyj/wortschatz-api
     - docker push gcr.io/wortschatz-rockyj/wortschatz-api
     - gcloud beta run deploy wortschatz-api --image gcr.io/wortschatz-rockyj/wortschatz-api
