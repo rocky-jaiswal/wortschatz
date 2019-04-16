@@ -45,7 +45,7 @@ deploy-api:
     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
     - google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json
     - google-cloud-sdk/bin/gcloud config set run/region us-central1
-    - google-cloud-sdk/bin/gcloud config set core/project wortschatz
+    - google-cloud-sdk/bin/gcloud config set core/project wortschatz-rockyj
     - google-cloud-sdk/bin/gcloud components install beta
     - google-cloud-sdk/bin/gcloud components update
     - google-cloud-sdk/bin/gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
