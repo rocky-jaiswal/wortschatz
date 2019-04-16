@@ -18,4 +18,6 @@ RUN tar -xvf wortschatz-api.tar
 
 USER $APPLICATION_USER
 
+EXPOSE 8080
+
 CMD ["/opt/app/wortschatz-api/bin/wortschatz-api"]
