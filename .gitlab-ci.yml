@@ -51,5 +51,5 @@ deploy-api:
     - google-cloud-sdk/bin/gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
     - cd $CI_PROJECT_DIR/api && docker build . --tag gcr.io/wortschatz-rockyj/wortschatz-api
     - docker push gcr.io/wortschatz-rockyj/wortschatz-api
-    - cd $CI_PROJECT_DIR && google-cloud-sdk/bin/gcloud beta run deploy wortschatz-api --image gcr.io/wortschatz-rockyj/wortschatz-api
+    - cd $CI_PROJECT_DIR && google-cloud-sdk/bin/gcloud beta run deploy wortschatz-rockyj --image gcr.io/wortschatz-rockyj/wortschatz-api
     - rm -f /root/.docker/config.json /tmp/$CI_PIPELINE_ID.json
