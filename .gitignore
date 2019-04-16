@@ -10,3 +10,4 @@
 /gsheet-loader/token.json
 /api/src/main/resources/secrets/
 /ui/build/
+**/.DS_Store
