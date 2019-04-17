@@ -17,7 +17,7 @@ prepare-api:
     - cd $CI_PROJECT_DIR/api && ruby encrypt_secrets.rb production
 
 build-api:
-  image: java:11-jdk
+  image: openjdk:11-slim
   stage: build-api
   dependencies:
     - prepare-api
