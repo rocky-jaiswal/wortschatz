@@ -30,26 +30,26 @@ build-api:
   script:
     - cd $CI_PROJECT_DIR/api && ./gradlew -Dorg.gradle.daemon=false clean build --info
 
-deploy-api:
-  image: docker:latest
-  stage: deploy-api
-  dependencies:
-    - build-api
-  services:
-    - docker:dind
-  script:
-    - apk add --update make ca-certificates openssl python
-    - update-ca-certificates
-    - wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-241.0.0-linux-x86_64.tar.gz
-    - tar zxvf google-cloud-sdk-241.0.0-linux-x86_64.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true
-    - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
-    - google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json
-    - google-cloud-sdk/bin/gcloud config set run/region us-central1
-    - google-cloud-sdk/bin/gcloud config set core/project wortschatz-rockyj
-    - google-cloud-sdk/bin/gcloud components install beta
-    - google-cloud-sdk/bin/gcloud components update
-    - google-cloud-sdk/bin/gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-    - cd $CI_PROJECT_DIR/api && docker build . --tag gcr.io/wortschatz-rockyj/wortschatz-api
-    - docker push gcr.io/wortschatz-rockyj/wortschatz-api
-    - cd $CI_PROJECT_DIR && google-cloud-sdk/bin/gcloud beta run deploy wortschatz-rockyj --image gcr.io/wortschatz-rockyj/wortschatz-api
-    - rm -f /root/.docker/config.json /tmp/$CI_PIPELINE_ID.json
+# deploy-api:
+#   image: docker:latest
+#   stage: deploy-api
+#   dependencies:
+#     - build-api
+#   services:
+#     - docker:dind
+#   script:
+#     - apk add --update make ca-certificates openssl python
+#     - update-ca-certificates
+#     - wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-241.0.0-linux-x86_64.tar.gz
+#     - tar zxvf google-cloud-sdk-241.0.0-linux-x86_64.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true
+#     - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
+#     - google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/$CI_PIPELINE_ID.json
+#     - google-cloud-sdk/bin/gcloud config set run/region us-central1
+#     - google-cloud-sdk/bin/gcloud config set core/project wortschatz-rockyj
+#     - google-cloud-sdk/bin/gcloud components install beta
+#     - google-cloud-sdk/bin/gcloud components update
+#     - google-cloud-sdk/bin/gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+#     - cd $CI_PROJECT_DIR/api && docker build . --tag gcr.io/wortschatz-rockyj/wortschatz-api
+#     - docker push gcr.io/wortschatz-rockyj/wortschatz-api
+#     - cd $CI_PROJECT_DIR && google-cloud-sdk/bin/gcloud beta run deploy wortschatz-api --image gcr.io/wortschatz-rockyj/wortschatz-api
+#     - rm -f /root/.docker/config.json /tmp/$CI_PIPELINE_ID.json
