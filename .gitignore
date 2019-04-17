@@ -11,3 +11,5 @@
 /api/src/main/resources/secrets/
 /ui/build/
 **/.DS_Store
+/utils/words_in.csv
+/utils/words_out.csv
