@@ -25,7 +25,7 @@ const Header = (props: Props) => {
             onChange={(e) => e.target.validity.valid && props.setIndex(parseInt(e.target.value, 10))}
           />
           /
-          {props.wordCount}
+          {props.wordCount - 1}
         </span>
       </div>
     </div>
