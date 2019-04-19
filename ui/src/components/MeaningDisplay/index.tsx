@@ -4,6 +4,7 @@ import { Spring } from 'react-spring/renderprops';
 import styles from './styles.module.scss';
 
 interface Props {
+  wordId: number;
   englishWord: string;
 }
 
@@ -14,7 +15,7 @@ const MeaningDisplay = (props: Props) => {
         from={{ x: 0 }}
         to={{ x: 100 }}
         config={{ duration: 1100 }}
-        key={`${props.englishWord}-1`}
+        key={`${props.wordId}-1`}
       >
         {p => (
           <svg>
@@ -26,7 +27,7 @@ const MeaningDisplay = (props: Props) => {
         from={{ opacity: 0 }}
         to={{ opacity: 1 }}
         delay={1000}
-        key={`${props.englishWord}-2`}
+        key={`${props.wordId}-2`}
       >
         {p => <h1 style={p}>{props.englishWord}</h1>}
       </Spring>

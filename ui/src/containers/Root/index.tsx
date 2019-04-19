@@ -49,10 +49,11 @@ export class Root extends React.Component<Props & DispatchProps> {
     if (this.props.words.length === 0 || this.props.loading) {
       return <Loading show={true} />;
     }
+    const currentWord = this.props.words[this.props.currentIndex];
     return (
       <div className={styles.words_container}>
-        <WordDisplay germanWord={this.props.words[this.props.currentIndex].germanWord} />
-        <MeaningDisplay englishWord={this.props.words[this.props.currentIndex].englishWord} />
+        <WordDisplay germanWord={currentWord.germanWord} wordId={currentWord.id} />
+        <MeaningDisplay englishWord={currentWord.englishWord} wordId={currentWord.id}/>
       </div>
     );
   }

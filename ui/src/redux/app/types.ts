@@ -1,6 +1,7 @@
 import { Immutable } from 'seamless-immutable';
 
 export interface WordAndMeaning {
+  id: number;
   englishWord: string;
   germanWord: string;
 }
