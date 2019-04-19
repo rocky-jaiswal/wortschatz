@@ -6,7 +6,7 @@ const environmentConfiguration = (environment: string) => {
     };
   }
   return {
-    baseURL: `https://api.${window.location.hostname}`
+    baseURL: `https://api.wortschatz.live`
   };
 };
 
