@@ -4,10 +4,10 @@ import { Immutable } from 'seamless-immutable';
 import { push } from 'connected-react-router';
 
 import { Dispatch, RootStateType } from '../../constants/types';
+import { WordAndMeaning } from '../../redux/app/types';
 import { loadInitialData } from '../../redux/app/actions';
 import { withWrapper } from '../MainHoc';
 
-import { WordAndMeaning } from '../../redux/app/types';
 import WordDisplay from '../../components/WordDisplay';
 import MeaningDisplay from '../../components/MeaningDisplay';
 import Loading from '../../components/Loading';

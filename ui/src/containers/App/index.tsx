@@ -9,13 +9,13 @@ export class App extends React.Component<{}> {
   render() {
     return (
       <LanguageProvider>
-        {/* <React.StrictMode> */}
+        <React.StrictMode>
           <Switch>
             {Object.keys(routes).map((route) => {
               return <Route {...routes[route]} key={routes[route].sequence} />;
             })}
           </Switch>
-        {/* </React.StrictMode> */}
+        </React.StrictMode>
       </LanguageProvider>
     );
   }

@@ -49,24 +49,6 @@ body {
   width: 100%;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--main-display-font);
-}
-
-a,
-a:active,
-a:visited {
-  color: var(--main-orange);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
 img {
   border: 0;
   height: auto;
@@ -86,20 +68,4 @@ nav,
 section,
 summary {
   display: block;
-}
-
-p {
-  margin: calc(var(--vspace) / 2) 0;
-}
-
-[aria-busy='true'] {
-  cursor: progress;
-}
-
-[aria-controls] {
-  cursor: pointer;
-}
-
-[aria-disabled] {
-  cursor: default;
 }

@@ -3,10 +3,11 @@
 .header {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   background-color: $main-brand;
   color: $main-white;
-  height: 30px;
+  height: 50px;
   padding: $hspace;
 
   a {
@@ -17,5 +18,12 @@
 
   a:hover {
     text-decoration: none;
+  }
+
+  input {
+    width: 50px;
+    height: 20px;
+    margin-right: 3px;
+    color: #444;
   }
 }

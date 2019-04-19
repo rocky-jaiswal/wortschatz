@@ -7,6 +7,7 @@ export const LOAD_INITIAL_DATA_FAILED = 'app/LOAD_INITIAL_DATA_FAILED';
 
 export const INC_INDEX = 'app/INC_INDEX';
 export const DEC_INDEX = 'app/DEC_INDEX';
+export const SET_INDEX = 'app/SET_INDEX';
 
 export const loadInitialData = () => {
   return {
@@ -42,5 +43,12 @@ export const incrementIndex = () => {
 export const decrementIndex = () => {
   return {
     type: DEC_INDEX
+  };
+};
+
+export const setIndex = (payload: number) => {
+  return {
+    payload,
+    type: SET_INDEX
   };
 };
