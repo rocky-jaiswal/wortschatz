@@ -16,6 +16,7 @@ const Header = (props: Props) => {
       <div>
         <span>
           <input
+            id="indexInputHeader"
             type="number"
             min={0}
             max={props.wordCount - 1}
