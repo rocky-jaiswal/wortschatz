@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 
 import { ActionType } from '../../constants/types';
 import { AppState, AppStateType } from './types';
-import { INC_INDEX, LOAD_INITIAL_DATA_SUCCESS, DEC_INDEX, SET_INDEX } from './actions';
+import { INC_INDEX, LOAD_INITIAL_DATA_SUCCESS, DEC_INDEX, SET_INDEX, LOAD_INITIAL_DATA_INPROGRESS } from './actions';
 
 export const istate: AppState = {
   locale: 'en',
@@ -20,8 +20,13 @@ const appReducer = (state = initialState, action: ActionType<any>): AppStateType
     default:
       return state;
 
+    case LOAD_INITIAL_DATA_INPROGRESS:
+      return state.set('loading', true);
+
     case LOAD_INITIAL_DATA_SUCCESS:
-      return state.set('words', action.payload);
+      return state
+        .set('loading', false)
+        .set('words', action.payload);
 
     case DEC_INDEX:
       return state.set('currentIndex', state.currentIndex === 0 ? state.words.length - 1 : state.currentIndex - 1);
