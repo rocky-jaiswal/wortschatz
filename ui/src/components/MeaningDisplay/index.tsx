@@ -19,7 +19,7 @@ const MeaningDisplay = (props: Props) => {
       >
         {p => (
           <svg>
-            <line x1="0" y1="0" x2={`${p.x}%`} y2="0" stroke="#FF509D" strokeWidth="5" />
+            <line x1="0" y1="0" x2={`${p.x}%`} y2="0" stroke="#42d5a4" strokeWidth="5" />
           </svg>
         )}
       </Spring>

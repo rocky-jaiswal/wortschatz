@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .word_display {
   display: flex;
   flex-direction: column;
@@ -6,6 +8,6 @@
   text-align: center;
   height: 50%;
   width: 100%;
-  background: #444;
-  color: white;
+  background: $main-dark;
+  color: $main-white;
 }
