@@ -1,24 +1,23 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { IntlProvider } from 'react-intl';
+import * as React from 'react'
+import { connect } from 'react-redux'
+import { IntlProvider } from 'react-intl'
 
-import { Dispatch, RootStateType } from '../../constants/types';
-import { translationMessages } from '../../i18n/';
+import { Dispatch, RootStateType } from '../../constants/types'
+import { translationMessages } from '../../i18n/'
 
 interface Props {
-  locale: string;
-};
+  locale: string
+}
 
 const mapStateToProps = (rootState: RootStateType, _ownProps: {}): Props => ({
-  locale: rootState.app.locale
-});
+  locale: rootState.app.locale,
+})
 
 const mapDispatchToProps = (_dispatch: Dispatch): {} => {
-  return {};
-};
+  return {}
+}
 
-class LanguageProvider extends React.Component<Props> {
-
+class LanguageProvider extends React.Component<any> {
   render() {
     return (
       <IntlProvider
@@ -28,9 +27,8 @@ class LanguageProvider extends React.Component<Props> {
       >
         {React.Children.only(this.props.children)}
       </IntlProvider>
-    );
+    )
   }
-
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LanguageProvider);
+export default connect(mapStateToProps, mapDispatchToProps)(LanguageProvider)

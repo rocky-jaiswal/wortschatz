@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { Spring } from 'react-spring/renderprops';
+import * as React from 'react'
+import { Spring } from 'react-spring/renderprops'
 
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
 
 interface Props {
-  wordId: number;
-  englishWord: string;
+  wordId: string
+  englishWord: string
 }
 
 const MeaningDisplay = (props: Props) => {
@@ -17,9 +17,16 @@ const MeaningDisplay = (props: Props) => {
         config={{ duration: 1100 }}
         key={`${props.wordId}-1`}
       >
-        {p => (
+        {(p) => (
           <svg>
-            <line x1="0" y1="0" x2={`${p.x}%`} y2="0" stroke="#42d5a4" strokeWidth="5" />
+            <line
+              x1="0"
+              y1="0"
+              x2={`${p.x}%`}
+              y2="0"
+              stroke="#42d5a4"
+              strokeWidth="5"
+            />
           </svg>
         )}
       </Spring>
@@ -29,10 +36,10 @@ const MeaningDisplay = (props: Props) => {
         delay={1000}
         key={`${props.wordId}-2`}
       >
-        {p => <h1 style={p}>{props.englishWord}</h1>}
+        {(p) => <h1 style={p}>{props.englishWord}</h1>}
       </Spring>
     </div>
-  );
-};
+  )
+}
 
-export default MeaningDisplay;
+export default MeaningDisplay

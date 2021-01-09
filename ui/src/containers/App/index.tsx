@@ -1,23 +1,21 @@
-import * as React from 'react';
-import { Route, Switch } from 'react-router';
+import * as React from 'react'
+import { Route, Switch } from 'react-router'
 
-import routes from '../../routes';
-import LanguageProvider from '../LanguageProvider';
+import routes from '../../routes'
+import LanguageProvider from '../LanguageProvider'
 
 export class App extends React.Component<{}> {
-
   render() {
     return (
       <LanguageProvider>
         <React.StrictMode>
           <Switch>
             {Object.keys(routes).map((route) => {
-              return <Route {...routes[route]} key={routes[route].sequence} />;
+              return <Route {...routes[route]} key={routes[route].sequence} />
             })}
           </Switch>
         </React.StrictMode>
       </LanguageProvider>
-    );
+    )
   }
-
 }

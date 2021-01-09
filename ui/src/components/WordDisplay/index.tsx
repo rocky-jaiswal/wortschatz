@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
 
 interface Props {
-  wordId: number;
-  germanWord: string;
+  wordId: string
+  germanWord: string
 }
 
 const WordDisplay = (props: Props) => {
@@ -12,7 +12,7 @@ const WordDisplay = (props: Props) => {
     <div className={styles.word_display}>
       <h1 key={props.wordId}>{props.germanWord}</h1>
     </div>
-  );
-};
+  )
+}
 
-export default WordDisplay;
+export default WordDisplay

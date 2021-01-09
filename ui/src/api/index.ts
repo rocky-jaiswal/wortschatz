@@ -1,23 +1,11 @@
-import axios from 'axios';
+import axios from 'axios'
 
-import Config from '../config';
-
-const getAuthToken = () => {
-  return `Bearer ${localStorage.getItem('token')}`;
-};
+import Config from '../config'
 
 const AppAPI = {
-
-  async authenticate() {
-    return axios
-      .post(Config.env.baseURL + '/auth');
-  },
-
   async loadInitialData() {
-    return axios
-      .get(`${Config.env.baseURL}/words`, { headers: { Authorization: getAuthToken() } });
-  }
+    return axios.get(`${Config.env.baseURL}/words.json`)
+  },
+}
 
-};
-
-export default AppAPI;
+export default AppAPI

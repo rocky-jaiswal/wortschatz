@@ -1,22 +1,21 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import Footer from '../Footer';
-import Header from '../Header';
+import Footer from '../Footer'
+import Header from '../Header'
 
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
 
 interface Props {
-  loading: boolean;
-  wordCount: number;
-  currentIndex: number;
-  children?: React.ReactElement<{}>;
-  incrementIndex(): {};
-  decrementIndex(): {};
-  setIndex(payload: number): {};
+  loading: boolean
+  wordCount: number
+  currentIndex: number
+  children?: React.ReactElement<{}>
+  incrementIndex(): {}
+  decrementIndex(): {}
+  setIndex(payload: number): {}
 }
 
 const Layout = (props: Props) => {
-
   return (
     <div className={styles.main_container}>
       <Header
@@ -35,8 +34,7 @@ const Layout = (props: Props) => {
         decrementIndex={props.decrementIndex}
       />
     </div>
-  );
+  )
+}
 
-};
-
-export default Layout;
+export default Layout

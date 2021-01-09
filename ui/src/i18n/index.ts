@@ -1,32 +1,35 @@
-import { addLocaleData } from 'react-intl';
+import enTranslationMessages from './en'
+import deTranslationMessages from './de'
 
-import * as enLocaleData from 'react-intl/locale-data/en';
-import * as deLocaleData from 'react-intl/locale-data/de';
+import { LocaleEnum } from '../constants/enums'
 
-import enTranslationMessages from './en';
-import deTranslationMessages from './de';
+const DEFAULT_LOCALE = LocaleEnum.EN.toString()
 
-import { LocaleEnum } from '../constants/enums';
-
-addLocaleData(enLocaleData);
-addLocaleData(deLocaleData);
-
-const DEFAULT_LOCALE = LocaleEnum.en.toString();
-
-export const formatTranslationMessages = (locale: string, messages: any): {} => {
-  const defaultFormattedMessages: any = locale !== DEFAULT_LOCALE
-    ? formatTranslationMessages(DEFAULT_LOCALE, enTranslationMessages)
-    : {};
+export const formatTranslationMessages = (
+  locale: string,
+  messages: any
+): {} => {
+  const defaultFormattedMessages: any =
+    locale !== DEFAULT_LOCALE
+      ? formatTranslationMessages(DEFAULT_LOCALE, enTranslationMessages)
+      : {}
   return Object.keys(messages).reduce((formattedMessages, key) => {
-    const formattedMessage = !messages[key] && locale !== DEFAULT_LOCALE
-      ? defaultFormattedMessages[key]
-      : messages[key];
-    return Object.assign(formattedMessages, { [key]: formattedMessage });
-  // tslint:disable-next-line:align
-  }, {});
-};
+    const formattedMessage =
+      !messages[key] && locale !== DEFAULT_LOCALE
+        ? defaultFormattedMessages[key]
+        : messages[key]
+    return Object.assign(formattedMessages, { [key]: formattedMessage })
+    // tslint:disable-next-line:align
+  }, {})
+}
 
 export const translationMessages: any = {
-  en: formatTranslationMessages(LocaleEnum.en.toString(), enTranslationMessages),
-  de: formatTranslationMessages(LocaleEnum.de.toString(), deTranslationMessages)
-};
+  en: formatTranslationMessages(
+    LocaleEnum.EN.toString(),
+    enTranslationMessages
+  ),
+  de: formatTranslationMessages(
+    LocaleEnum.EN.toString(),
+    deTranslationMessages
+  ),
+}
