@@ -6,7 +6,8 @@ import { ConnectedRouter } from 'connected-react-router'
 
 import { App } from './containers/App'
 import { configureStore } from './store'
-import * as serviceWorker from './serviceWorker'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import reportWebVitals from './reportWebVitals'
 
 import 'normalize.css'
 import './styles/reset.css'
@@ -24,4 +25,5 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-serviceWorker.register()
+reportWebVitals()
+serviceWorkerRegistration.register()
