@@ -8,11 +8,21 @@
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "noEmit": true,
     "jsx": "preserve",
     "jsxImportSource": "vue",
+    "types": ["vite/client", "node"],
+
     "strict": true,
-    "types": ["vite/client", "node"]
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false
   },
-  "include": ["src"]
+  "include": ["src", "vite.config.ts"]
 }

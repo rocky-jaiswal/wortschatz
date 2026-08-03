@@ -16,13 +16,17 @@ export function useSwipe({ onLeft, onRight }: SwipeHandlers) {
   let startY = 0
 
   const onTouchStart = (e: TouchEvent) => {
-    startX = e.touches[0].clientX
-    startY = e.touches[0].clientY
+    const touch = e.touches[0]
+    if (!touch) return
+    startX = touch.clientX
+    startY = touch.clientY
   }
 
   const onTouchEnd = (e: TouchEvent) => {
-    const dx = e.changedTouches[0].clientX - startX
-    const dy = e.changedTouches[0].clientY - startY
+    const touch = e.changedTouches[0]
+    if (!touch) return
+    const dx = touch.clientX - startX
+    const dy = touch.clientY - startY
     const isHorizontalSwipe =
       Math.abs(dx) > MIN_DISTANCE && Math.abs(dx) > Math.abs(dy) * HORIZONTAL_BIAS
     if (!isHorizontalSwipe) return

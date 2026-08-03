@@ -7,6 +7,7 @@ import {
   answerOf,
   clampIndex,
   flipMode,
+  indexAt,
   nextIndex,
   orderFor,
   parseIndex,
@@ -18,6 +19,9 @@ import {
 } from '../domain/deck'
 
 const words = wordsData as Word[]
+
+/** Shown only if the bundled word list is empty — blanks rather than a crash. */
+const NO_WORD: Word = { germanWord: '', englishWord: '' }
 
 /**
  * Composes the pure deck functions over the persisted store state. Every
@@ -31,7 +35,7 @@ export function useDeck() {
 
   const order = computed(() => orderFor(total, store.shuffled, store.seed))
   const position = computed(() => clampIndex(store.position, total))
-  const currentWord = computed<Word>(() => words[order.value[position.value]])
+  const currentWord = computed<Word>(() => words[indexAt(order.value, position.value)] ?? NO_WORD)
 
   const quizMode = computed(() => store.quizMode)
   const prompt = computed(() => promptOf(currentWord.value, quizMode.value))
@@ -53,7 +57,7 @@ export function useDeck() {
 
   /** Toggles shuffle, staying on the word you are currently looking at. */
   const toggleShuffle = () => {
-    const wordIndex = order.value[position.value]
+    const wordIndex = indexAt(order.value, position.value)
     const nextShuffled = !store.shuffled
     const nextSeed = nextShuffled ? Date.now() % 0x7fffffff : store.seed
     store.setShuffle(nextShuffled, nextSeed, positionOf(orderFor(total, nextShuffled, nextSeed), wordIndex))

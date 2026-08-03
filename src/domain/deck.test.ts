@@ -4,6 +4,7 @@ import {
   clampIndex,
   flipMode,
   identityOrder,
+  indexAt,
   nextIndex,
   orderFor,
   parseIndex,
@@ -150,8 +151,22 @@ describe('positionOf', () => {
 
   it('round-trips a word through a reshuffle', () => {
     const order = shuffleOrder(500, 2024)
-    const wordIndex = order[137]
-    expect(positionOf(order, wordIndex)).toBe(137)
+    expect(positionOf(order, indexAt(order, 137))).toBe(137)
+  })
+})
+
+describe('indexAt', () => {
+  it('reads through the order', () => {
+    expect(indexAt([3, 1, 0, 2], 1)).toBe(1)
+    expect(indexAt([3, 1, 0, 2], 0)).toBe(3)
+  })
+
+  it('clamps a position past the end', () => {
+    expect(indexAt([3, 1, 0, 2], 99)).toBe(2)
+  })
+
+  it('yields 0 for an empty order', () => {
+    expect(indexAt([], 5)).toBe(0)
   })
 })
 

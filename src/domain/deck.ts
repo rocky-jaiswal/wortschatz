@@ -64,10 +64,18 @@ export const shuffleOrder = (total: number, seed: number): number[] => {
   const random = randomFrom(seed)
   for (let i = total - 1; i > 0; i--) {
     const j = Math.floor(random() * (i + 1))
-    ;[order[i], order[j]] = [order[j], order[i]]
+    // `identityOrder` guarantees order[k] === k, so the index is the right
+    // fallback for a read the compiler cannot prove is in range.
+    const held = order[i] ?? i
+    order[i] = order[j] ?? j
+    order[j] = held
   }
   return order
 }
+
+/** The word index a position points at. Clamps, so it is always in range. */
+export const indexAt = (order: number[], position: number): number =>
+  order[clampIndex(position, order.length)] ?? 0
 
 /** The order for the deck as configured. */
 export const orderFor = (total: number, shuffled: boolean, seed: number): number[] =>
