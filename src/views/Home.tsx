@@ -6,7 +6,8 @@ import { WordCard } from '../components/WordCard'
 export default defineComponent({
   name: 'Home',
   setup() {
-    const { currentWord, currentIndex, direction, goPrev, goNext } = useDeck()
+    const { prompt, answer, promptLanguage, answerLanguage, position, slide, goPrev, goNext } =
+      useDeck()
     const { onTouchStart, onTouchEnd } = useSwipe({ onLeft: goNext, onRight: goPrev })
 
     const KEY_ACTIONS: Record<string, () => void> = {
@@ -24,12 +25,18 @@ export default defineComponent({
     onMounted(() => window.addEventListener('keydown', onKeydown))
     onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 
-    const transitionName = () => (direction.value < 0 ? 'slide-right' : 'slide-left')
+    const transitionName = () => (slide.value < 0 ? 'slide-right' : 'slide-left')
 
     return () => (
       <div class="h-full" onTouchstart={onTouchStart} onTouchend={onTouchEnd}>
         <Transition name={transitionName()} mode="out-in">
-          <WordCard key={currentIndex.value} word={currentWord.value} />
+          <WordCard
+            key={`${position.value}-${prompt.value}`}
+            prompt={prompt.value}
+            answer={answer.value}
+            promptLang={promptLanguage.value}
+            answerLang={answerLanguage.value}
+          />
         </Transition>
       </div>
     )

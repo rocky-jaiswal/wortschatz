@@ -5,16 +5,16 @@ import { useTheme } from '../composables/useTheme'
 export const AppHeader = defineComponent({
   name: 'AppHeader',
   setup() {
-    const { total, currentIndex, goToTyped } = useDeck()
+    const { total, position, goToTyped } = useDeck()
     const { theme, toggleTheme } = useTheme()
 
     // Local draft so typing "150" doesn't navigate through 1 and 15 on the way.
-    const draft = ref(String(currentIndex.value))
-    watch(currentIndex, (index) => (draft.value = String(index)))
+    const draft = ref(String(position.value))
+    watch(position, (index) => (draft.value = String(index)))
 
     const commit = () => {
       goToTyped(draft.value)
-      draft.value = String(currentIndex.value)
+      draft.value = String(position.value)
     }
 
     return () => (

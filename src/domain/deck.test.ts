@@ -1,5 +1,18 @@
 import { describe, it, expect } from 'vitest'
-import { clampIndex, nextIndex, prevIndex, parseIndex, positionLabel } from './deck'
+import {
+  answerOf,
+  clampIndex,
+  flipMode,
+  identityOrder,
+  nextIndex,
+  orderFor,
+  parseIndex,
+  positionLabel,
+  positionOf,
+  prevIndex,
+  promptOf,
+  shuffleOrder,
+} from './deck'
 
 const TOTAL = 5
 
@@ -78,5 +91,85 @@ describe('positionLabel', () => {
 
   it('clamps a stale index', () => {
     expect(positionLabel(99, TOTAL)).toBe('4 / 4')
+  })
+})
+
+describe('identityOrder', () => {
+  it('maps each position to the same word index', () => {
+    expect(identityOrder(4)).toEqual([0, 1, 2, 3])
+  })
+
+  it('handles an empty deck', () => {
+    expect(identityOrder(0)).toEqual([])
+  })
+})
+
+describe('shuffleOrder', () => {
+  it('is a permutation — every word appears exactly once', () => {
+    const order = shuffleOrder(500, 12345)
+    expect(order).toHaveLength(500)
+    expect([...order].sort((a, b) => a - b)).toEqual(identityOrder(500))
+  })
+
+  it('is deterministic for a given seed', () => {
+    expect(shuffleOrder(200, 42)).toEqual(shuffleOrder(200, 42))
+  })
+
+  it('gives a different order for a different seed', () => {
+    expect(shuffleOrder(200, 42)).not.toEqual(shuffleOrder(200, 43))
+  })
+
+  it('actually reorders rather than returning the deck untouched', () => {
+    expect(shuffleOrder(200, 7)).not.toEqual(identityOrder(200))
+  })
+
+  it('handles empty and single-word decks', () => {
+    expect(shuffleOrder(0, 1)).toEqual([])
+    expect(shuffleOrder(1, 1)).toEqual([0])
+  })
+})
+
+describe('orderFor', () => {
+  it('is alphabetical when not shuffled', () => {
+    expect(orderFor(TOTAL, false, 99)).toEqual(identityOrder(TOTAL))
+  })
+
+  it('is shuffled when asked', () => {
+    expect(orderFor(200, true, 99)).toEqual(shuffleOrder(200, 99))
+  })
+})
+
+describe('positionOf', () => {
+  it('finds where a word sits in an order', () => {
+    expect(positionOf([3, 1, 0, 2], 0)).toBe(2)
+  })
+
+  it('falls back to the start when the word is missing', () => {
+    expect(positionOf([3, 1, 0, 2], 99)).toBe(0)
+  })
+
+  it('round-trips a word through a reshuffle', () => {
+    const order = shuffleOrder(500, 2024)
+    const wordIndex = order[137]
+    expect(positionOf(order, wordIndex)).toBe(137)
+  })
+})
+
+describe('quiz direction', () => {
+  const word = { germanWord: 'Abenteuer (das)', englishWord: 'adventure' }
+
+  it('asks German and answers English by default', () => {
+    expect(promptOf(word, 'deToEn')).toBe('Abenteuer (das)')
+    expect(answerOf(word, 'deToEn')).toBe('adventure')
+  })
+
+  it('swaps both sides when reversed', () => {
+    expect(promptOf(word, 'enToDe')).toBe('adventure')
+    expect(answerOf(word, 'enToDe')).toBe('Abenteuer (das)')
+  })
+
+  it('flips back and forth', () => {
+    expect(flipMode('deToEn')).toBe('enToDe')
+    expect(flipMode(flipMode('deToEn'))).toBe('deToEn')
   })
 })
