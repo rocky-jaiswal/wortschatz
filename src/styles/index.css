@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@300;400;500;700&display=swap");
+
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-brand: var(--brand);
+  --color-accent: var(--accent);
+  --color-panel: var(--panel);
+  --color-panel-fg: var(--panel-fg);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-muted: var(--muted);
+  --font-display: "Archivo Black", Impact, sans-serif;
+  --font-sans: "Roboto", system-ui, sans-serif;
+}
+
+:root {
+  --bg: #f4f5f5;
+  --fg: #504f53;
+  --brand: #00a0d6;
+  --accent: #42d5a4;
+  --panel: #3d3d3d;
+  --panel-fg: #ffffff;
+  --card-bg: #ffffff;
+  --card-border: #e2e4e4;
+  --muted: #8a8a8a;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0c1416;
+  --fg: #d8e4e6;
+  --brand: #0d7f9e;
+  --accent: #3aa87f;
+  /* The word panel stays clearly lighter than the meaning panel, so the split
+     reads the same way the dark-grey / white split does in the light theme. */
+  --panel: #23343c;
+  --panel-fg: #eef6f7;
+  --card-bg: #0e1619;
+  --card-border: #23343a;
+  --muted: #6d8189;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s, color 0.3s;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * The reveal. A green line sweeps across over 1100ms, then the meaning fades
+ * in starting at 1000ms — this delay is the whole point of the app, it is the
+ * window in which you guess the word. Both restart on every word because the
+ * card is keyed by index and Vue recreates the nodes.
+ */
+@keyframes reveal-sweep {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.reveal-sweep {
+  transform-origin: left;
+  animation: reveal-sweep 1100ms ease-out forwards;
+}
+
+.reveal-meaning {
+  opacity: 0;
+  animation: reveal-fade 400ms ease-out 1000ms forwards;
+}
+
+/* Slide transitions between words */
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all 0.2s ease;
+}
+
+.slide-left-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/*
+ * Reduced motion: keep the timing (it is the exercise) but drop the movement —
+ * the bar snaps to full at the end of the guessing window instead of sweeping.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-sweep {
+    animation-timing-function: step-end;
+  }
+
+  .slide-left-enter-active,
+  .slide-left-leave-active,
+  .slide-right-enter-active,
+  .slide-right-leave-active {
+    transition: none;
+  }
+}
